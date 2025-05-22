@@ -377,3 +377,57 @@
 
   // Event listeners for posts
   document.querySelectorAll('article.post
+// Event listeners for posts
+  document.querySelectorAll('article.post').forEach(post => {
+    post.addEventListener('click', () => {
+      openModal(post.dataset.id);
+    });
+    post.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        openModal(post.dataset.id);
+        e.preventDefault();
+      }
+    });
+  });
+
+  // Close modal on close button click
+  modalClose.addEventListener('click', closeModal);
+
+  // Close modal on outside click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Close modal on ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // Dark mode toggle
+  const darkToggle = document.getElementById('dark-toggle');
+  darkToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    // Simpan preferensi di localStorage
+    if(document.body.classList.contains('dark')) {
+      darkToggle.textContent = 'Mode Terang';
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      darkToggle.textContent = 'Mode Gelap';
+      localStorage.setItem('darkMode', 'disabled');
+    }
+  });
+
+  // Cek preferensi dark mode saat load
+  window.addEventListener('load', () => {
+    if(localStorage.getItem('darkMode') === 'enabled') {
+      document.body.classList.add('dark');
+      darkToggle.textContent = 'Mode Terang';
+    } else {
+      darkToggle.textContent = 'Mode Gelap';
+    }
+  });
+</script>
