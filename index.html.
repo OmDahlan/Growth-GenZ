@@ -3,103 +3,242 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>growth.genZ Blog</title>
+  <title>growth.genZ - Inspirasi & Motivasi Gen Z</title>
   <style>
-    /* Reset dan styling dasar */
+    /* RESET */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
     }
     body {
       background: #fff;
       color: #111;
-      line-height: 1.6;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
+      padding: 0 20px 40px;
+      transition: background 0.3s, color 0.3s;
+    }
+    /* DARK MODE */
+    body.dark {
+      background: #121212;
+      color: #eee;
     }
     header {
       width: 100%;
       max-width: 900px;
+      padding: 25px 0;
       text-align: center;
-      margin-bottom: 30px;
-      padding-bottom: 15px;
       border-bottom: 2px solid #111;
     }
+    body.dark header {
+      border-color: #eee;
+    }
     header img {
-      max-width: 100px;
-      margin-bottom: 10px;
+      max-width: 120px;
+      margin-bottom: 12px;
+      filter: invert(0);
+      transition: filter 0.3s;
+    }
+    body.dark header img {
+      filter: invert(1);
     }
     header h1 {
+      font-size: 2.8rem;
       font-weight: 700;
-      font-size: 2.5rem;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.5px;
       margin-bottom: 6px;
     }
     header p {
-      font-weight: 500;
       font-size: 1.1rem;
-      color: #555;
       font-style: italic;
+      color: #555;
+    }
+    body.dark header p {
+      color: #bbb;
+    }
+    /* DARK MODE TOGGLE */
+    #dark-toggle {
+      cursor: pointer;
+      background: transparent;
+      border: 2px solid #111;
+      color: #111;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 30px;
+      margin-top: 15px;
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+    body.dark #dark-toggle {
+      border-color: #eee;
+      color: #eee;
+    }
+    #dark-toggle:hover {
+      background: #111;
+      color: #fff;
+    }
+    body.dark #dark-toggle:hover {
+      background: #eee;
+      color: #111;
     }
 
     main {
       width: 100%;
       max-width: 900px;
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
     }
     article.post {
-      background: #f8f8f8;
+      background: #f7f7f7;
+      border-radius: 12px;
       padding: 20px 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgb(0 0 0 / 0.08);
-      transition: box-shadow 0.3s ease;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.07);
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    body.dark article.post {
+      background: #1e1e1e;
+      box-shadow: 0 4px 12px rgb(255 255 255 / 0.1);
     }
     article.post:hover {
-      box-shadow: 0 6px 15px rgb(0 0 0 / 0.15);
+      box-shadow: 0 10px 20px rgb(0 0 0 / 0.12);
+      transform: translateY(-4px);
+    }
+    body.dark article.post:hover {
+      box-shadow: 0 10px 20px rgb(255 255 255 / 0.2);
     }
     article.post h2 {
-      margin-bottom: 12px;
-      font-size: 1.8rem;
-      color: #222;
+      font-size: 1.5rem;
+      margin-bottom: 14px;
+      color: #111;
+    }
+    body.dark article.post h2 {
+      color: #eee;
     }
     article.post p {
+      flex-grow: 1;
+      color: #444;
       font-size: 1rem;
-      color: #333;
+      margin-bottom: 14px;
+    }
+    body.dark article.post p {
+      color: #ccc;
     }
     article.post time {
-      display: block;
-      margin-top: 12px;
       font-size: 0.85rem;
       color: #777;
+      text-align: right;
+      font-style: italic;
+    }
+    body.dark article.post time {
+      color: #999;
     }
 
-    footer {
-      margin-top: 40px;
+    /* MODAL */
+    #modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgb(0 0 0 / 0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 9999;
+      overflow-y: auto;
+    }
+    #modal.active {
+      display: flex;
+    }
+    #modal-content {
+      background: #fff;
+      max-width: 700px;
       width: 100%;
-      max-width: 900px;
+      border-radius: 14px;
+      padding: 30px 35px;
+      box-shadow: 0 8px 25px rgb(0 0 0 / 0.3);
+      position: relative;
+      color: #111;
+      line-height: 1.6;
+    }
+    body.dark #modal-content {
+      background: #222;
+      color: #eee;
+      box-shadow: 0 8px 25px rgb(255 255 255 / 0.2);
+    }
+    #modal-content h2 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    #modal-content p {
+      margin-bottom: 18px;
+      font-size: 1.1rem;
+      color: inherit;
+    }
+    #modal-content ul {
+      margin: 15px 0 25px 20px;
+      list-style-type: disc;
+      color: inherit;
+    }
+    #modal-content ul li {
+      margin-bottom: 10px;
+    }
+    #modal-close {
+      position: absolute;
+      top: 15px;
+      right: 18px;
+      font-size: 28px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #111;
+      user-select: none;
+      transition: color 0.3s;
+    }
+    body.dark #modal-close {
+      color: #eee;
+    }
+    #modal-close:hover {
+      color: #ff3b3b;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 60px;
       padding-top: 15px;
       border-top: 2px solid #111;
+      width: 100%;
+      max-width: 900px;
       text-align: center;
       color: #555;
-      font-size: 0.9rem;
       font-weight: 500;
+      font-size: 0.9rem;
+    }
+    body.dark footer {
+      border-color: #eee;
+      color: #bbb;
     }
 
-    /* Responsive */
+    /* RESPONSIVE */
     @media (max-width: 600px) {
       header h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
       }
-      article.post h2 {
-        font-size: 1.4rem;
+      main {
+        grid-template-columns: 1fr;
+        gap: 20px;
       }
-      body {
-        padding: 15px;
+      #modal-content {
+        padding: 25px 20px;
       }
     }
   </style>
@@ -110,31 +249,131 @@
   <img src="https://i.ibb.co/Wx2G2F4/growth-genz-logo.png" alt="growth.genZ Logo" />
   <h1>growth.genZ</h1>
   <p>Tempatnya Inspirasi dan Motivasi untuk Generasi Z Berkembang</p>
+  <button id="dark-toggle" aria-label="Toggle dark mode">Mode Gelap</button>
 </header>
 
 <main>
-  <article class="post">
-    <h2>Welcome to growth.genZ! Mulai Perjalanan Pertumbuhanmu Sekarang</h2>
-    <p>Hai GenZ! Di sini kita berbagi tips, motivasi, dan strategi agar kamu bisa berkembang maksimal di era digital yang penuh tantangan ini. Jangan takut gagal, terus belajar dan berinovasi!</p>
+  <article class="post" data-id="1" tabindex="0" role="button" aria-pressed="false" aria-label="Baca artikel Rahasia Growth GenZ">
+    <h2>Rahasia Growth GenZ: Cara Jitu Bangun Diri dan Masa Depan yang Cemerlang</h2>
+    <p>Pelajari cara mengenali diri, belajar efektif, kelola waktu, dan bangun mindset positif agar siap hadapi masa depan.</p>
     <time datetime="2025-05-22">22 Mei 2025</time>
   </article>
 
-  <article class="post">
+  <article class="post" data-id="2" tabindex="0" role="button" aria-pressed="false" aria-label="Baca artikel 5 Cara Meningkatkan Produktivitas Harian untuk Gen Z">
     <h2>5 Cara Meningkatkan Produktivitas Harian untuk Gen Z</h2>
-    <p>Temukan cara mudah dan efektif untuk mengatur waktu dan energi agar setiap harimu lebih produktif. Mulai dari membuat to-do list sampai teknik fokus, semua dibahas lengkap di sini.</p>
+    <p>Tips manajemen waktu dan energi supaya hari-hari kamu lebih efektif dan hasilnya maksimal.</p>
     <time datetime="2025-05-20">20 Mei 2025</time>
   </article>
 
-  <article class="post">
+  <article class="post" data-id="3" tabindex="0" role="button" aria-pressed="false" aria-label="Baca artikel Mindset Positif: Kunci Sukses Masa Depanmu">
     <h2>Mindset Positif: Kunci Sukses Masa Depanmu</h2>
-    <p>Mindset positif akan membuka banyak peluang. Yuk, pelajari cara menjaga semangat dan tetap optimis menghadapi berbagai tantangan dalam hidup dan kariermu.</p>
+    <p>Cara menjaga semangat dan optimisme agar tetap maju walau tantangan menghadang.</p>
     <time datetime="2025-05-18">18 Mei 2025</time>
   </article>
 </main>
+
+<!-- MODAL DETAIL -->
+<div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div id="modal-content" tabindex="0">
+    <button id="modal-close" aria-label="Tutup detail artikel">&times;</button>
+    <h2 id="modal-title">Judul Artikel</h2>
+    <div id="modal-body">
+      <p>Konten artikel akan muncul di sini.</p>
+    </div>
+  </div>
+</div>
 
 <footer>
   &copy; 2025 growth.genZ. All rights reserved.
 </footer>
 
-</body>
-  </html>
+<script>
+  // Data artikel lengkap
+  const articles = {
+    1: {
+      title: "Rahasia Growth GenZ: Cara Jitu Bangun Diri dan Masa Depan yang Cemerlang",
+      content: `
+        <p>Halo GenZ! Kamu pasti tahu zaman sekarang serba cepat dan penuh tantangan, kan? Kadang kita bingung harus mulai dari mana untuk berkembang dan mempersiapkan masa depan yang gemilang. Jangan khawatir, artikel ini bakal kupas tuntas rahasia buat kamu supaya makin growth dan siap hadapi dunia nyata.</p>
+        <h3>1. Kenali Diri Kamu dan Tujuan Hidupmu</h3>
+        <p>Sebelum melangkah jauh, penting banget kenal siapa kamu sebenarnya. Apa yang kamu suka? Apa passionmu? Apa yang bikin kamu semangat bangun pagi? Menemukan tujuan hidup itu kayak punya peta buat perjalanan yang jelas. Tanpa tujuan, kamu cuma jalan tanpa arah.</p>
+        <blockquote>"Tujuan yang jelas itu kunci dari semua kesuksesan." – growth.genZ</blockquote>
+        <h3>2. Jadikan Belajar sebagai Gaya Hidup</h3>
+        <p>Generasi Z itu jagonya multitasking dan akses informasi yang super cepat. Manfaatin ini! Jangan cuma belajar di sekolah, tapi eksplorasi ilmu lewat YouTube, podcast, blog, dan komunitas online. Ingat, belajar itu nggak berhenti sampai dapat nilai bagus, tapi sampai kamu bisa aplikasikan dan terus upgrade skill.</p>
+        <h3>3. Kelola Waktu dengan Cerdas</h3>
+        <p>Kamu pasti sering ngerasa waktu 24 jam nggak cukup, kan? Tenang, rahasianya ada di manajemen waktu. Gunakan teknik seperti Pomodoro atau buat to-do list prioritas. Jangan lupa sisihkan waktu untuk istirahat dan recharge supaya tetap fresh dan kreatif.</p>
+        <h3>4. Jangan Takut Gagal dan Coba Hal Baru</h3>
+        <p>Gagal itu bukan akhir, tapi awal dari pembelajaran baru. Banyak tokoh sukses justru berawal dari kegagalan yang mereka pelajari dan bangkit lagi. Jadi, jangan takut untuk coba hal baru, ambil risiko kecil, dan terus evaluasi diri.</p>
+        <h3>5. Bangun Networking dan Komunitas Positif</h3>
+        <p>Kesuksesan gak cuma soal apa yang kamu tahu, tapi juga siapa yang kamu kenal. Gabung di komunitas yang support impianmu, belajar dari orang lain, dan jangan lupa berbagi ilmu juga. Networking yang baik bisa membuka peluang tak terduga.</p>
+        <h3>6. Jaga Kesehatan Mental dan Fisik</h3>
+        <p>Mau sukses kalau badan dan pikiran nggak sehat? Mustahil! Luangkan waktu buat olahraga, tidur cukup, dan lakukan hobi yang bikin kamu bahagia. Jangan sungkan untuk minta bantuan saat merasa stres atau cemas.</p>
+        <h3>7. Gunakan Teknologi dengan Bijak</h3>
+        <p>Teknologi adalah alat powerful buat kamu berkembang, tapi juga bisa jadi pengalih perhatian. Batasi waktu sosial media, fokus pada konten yang positif, dan gunakan gadget untuk belajar, berkarya, dan berkolaborasi.</p>
+        <h2>Bonus Tips: Aplikasi dan Tools Favorit Growth GenZ</h2>
+        <ul>
+          <li><strong>Notion:</strong> Untuk manajemen tugas dan catatan harian yang fleksibel.</li>
+          <li><strong>Forest:</strong> Bantu fokus dengan metode Pomodoro.</li>
+          <li><strong>Headspace:</strong> Meditasi untuk kesehatan mental.</li>
+          <li><strong>Canva:</strong> Desain mudah untuk konten sosial media dan presentasi.</li>
+        </ul>
+        <h2>Ayo Mulai Growth-mu Sekarang!</h2>
+        <p>Ingat, perkembangan diri itu proses yang butuh waktu dan konsistensi. Jangan cepat menyerah, terus coba dan adaptasi. growth.genZ selalu support kamu buat jadi versi terbaik dirimu. Yuk, mulai langkah kecil hari ini, masa depan cerah sudah menunggu!</p>
+        <p>Kalau kamu suka artikel ini, jangan lupa share ke teman-teman GenZ lainnya ya! Follow juga growth.genZ untuk update motivasi dan tips keren lainnya.</p>
+      `
+    },
+    2: {
+      title: "5 Cara Meningkatkan Produktivitas Harian untuk Gen Z",
+      content: `
+        <p>Waktu adalah sumber daya yang paling berharga. Kalau kamu bisa memaksimalkan 24 jam dalam sehari, hidup kamu bakal jauh lebih produktif dan bahagia. Berikut 5 cara yang bisa kamu coba:</p>
+        <ol>
+          <li><strong>Mulai dengan Rencana Harian:</strong> Buat daftar tugas yang realistis dan urutkan prioritasnya. Jangan lupa beri waktu istirahat.</li>
+          <li><strong>Gunakan Teknik Pomodoro:</strong> Kerja fokus 25 menit lalu istirahat 5 menit. Ulangi 4 kali lalu istirahat lebih lama.</li>
+          <li><strong>Singkirkan Gangguan:</strong> Matikan notifikasi yang nggak penting, jangan buka sosial media saat kerja.</li>
+          <li><strong>Olahraga Ringan:</strong> Tubuh yang aktif bikin otak juga fresh, lebih mudah fokus dan semangat.</li>
+          <li><strong>Evaluasi Harian:</strong> Akhiri hari dengan refleksi apa yang sudah dicapai dan apa yang perlu diperbaiki.</li>
+        </ol>
+        <p>Kalau kamu konsisten jalankan ini, produktivitas kamu pasti meningkat dan kamu bakal punya lebih banyak waktu buat hal yang kamu suka.</p>
+      `
+    },
+    3: {
+      title: "Mindset Positif: Kunci Sukses Masa Depanmu",
+      content: `
+        <p>Mindset adalah cara kamu memandang dunia dan diri sendiri. Mindset positif bikin kamu lebih tahan banting dan siap hadapi berbagai masalah.</p>
+        <h3>Kenapa Mindset Positif Penting?</h3>
+        <p>Karena mindset negatif bisa bikin kamu takut coba hal baru, gampang menyerah, dan sulit berkembang.</p>
+        <h3>Cara Bangun Mindset Positif:</h3>
+        <ul>
+          <li><strong>Fokus pada Solusi:</strong> Jangan terlalu lama terjebak masalah, cari cara untuk memperbaiki.</li>
+          <li><strong>Belajar dari Kegagalan:</strong> Anggap kegagalan sebagai guru terbaik.</li>
+          <li><strong>Kelilingi Dirimu dengan Orang Positif:</strong> Energi positif itu menular.</li>
+          <li><strong>Jaga Self-Talk Positif:</strong> Bicara pada diri sendiri dengan kata-kata yang membangun.</li>
+        </ul>
+        <p>Ingat, mindset positif bukan berarti nggak boleh sedih atau gagal, tapi bagaimana kamu bangkit dan tetap optimis di setiap langkah.</p>
+      `
+    }
+  };
+
+  // Modal elements
+  const modal = document.getElementById('modal');
+  const modalContent = document.getElementById('modal-content');
+  const modalTitle = document.getElementById('modal-title');
+  const modalBody = document.getElementById('modal-body');
+  const modalClose = document.getElementById('modal-close');
+
+  // Open modal function
+  function openModal(id) {
+    const article = articles[id];
+    if (!article) return;
+    modalTitle.textContent = article.title;
+    modalBody.innerHTML = article.content;
+    modal.classList.add('active');
+    modalContent.focus();
+  }
+
+  // Close modal function
+  function closeModal() {
+    modal.classList.remove('active');
+  }
+
+  // Event listeners for posts
+  document.querySelectorAll('article.post
