@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>growth.genZ Blog</title>
+  <style>
+    /* Reset dan styling dasar */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #fff;
+      color: #111;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    header {
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #111;
+    }
+    header img {
+      max-width: 100px;
+      margin-bottom: 10px;
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 2.5rem;
+      letter-spacing: 1.2px;
+      margin-bottom: 6px;
+    }
+    header p {
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: #555;
+      font-style: italic;
+    }
+
+    main {
+      width: 100%;
+      max-width: 900px;
+    }
+    article.post {
+      background: #f8f8f8;
+      padding: 20px 25px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.08);
+      transition: box-shadow 0.3s ease;
+    }
+    article.post:hover {
+      box-shadow: 0 6px 15px rgb(0 0 0 / 0.15);
+    }
+    article.post h2 {
+      margin-bottom: 12px;
+      font-size: 1.8rem;
+      color: #222;
+    }
+    article.post p {
+      font-size: 1rem;
+      color: #333;
+    }
+    article.post time {
+      display: block;
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    footer {
+      margin-top: 40px;
+      width: 100%;
+      max-width: 900px;
+      padding-top: 15px;
+      border-top: 2px solid #111;
+      text-align: center;
+      color: #555;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+      article.post h2 {
+        font-size: 1.4rem;
+      }
+      body {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="https://i.ibb.co/Wx2G2F4/growth-genz-logo.png" alt="growth.genZ Logo" />
+  <h1>growth.genZ</h1>
+  <p>Tempatnya Inspirasi dan Motivasi untuk Generasi Z Berkembang</p>
+</header>
+
+<main>
+  <article class="post">
+    <h2>Welcome to growth.genZ! Mulai Perjalanan Pertumbuhanmu Sekarang</h2>
+    <p>Hai GenZ! Di sini kita berbagi tips, motivasi, dan strategi agar kamu bisa berkembang maksimal di era digital yang penuh tantangan ini. Jangan takut gagal, terus belajar dan berinovasi!</p>
+    <time datetime="2025-05-22">22 Mei 2025</time>
+  </article>
+
+  <article class="post">
+    <h2>5 Cara Meningkatkan Produktivitas Harian untuk Gen Z</h2>
+    <p>Temukan cara mudah dan efektif untuk mengatur waktu dan energi agar setiap harimu lebih produktif. Mulai dari membuat to-do list sampai teknik fokus, semua dibahas lengkap di sini.</p>
+    <time datetime="2025-05-20">20 Mei 2025</time>
+  </article>
+
+  <article class="post">
+    <h2>Mindset Positif: Kunci Sukses Masa Depanmu</h2>
+    <p>Mindset positif akan membuka banyak peluang. Yuk, pelajari cara menjaga semangat dan tetap optimis menghadapi berbagai tantangan dalam hidup dan kariermu.</p>
+    <time datetime="2025-05-18">18 Mei 2025</time>
+  </article>
+</main>
+
+<footer>
+  &copy; 2025 growth.genZ. All rights reserved.
+</footer>
+
+</body>
+  </html>
